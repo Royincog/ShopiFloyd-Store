@@ -77,7 +77,7 @@ export async function renderProduct() {
   }
 
   // Fallback to network
-  const product = await fetchProduct("demo-product");
+  const product = await fetchProduct("nike-shoe");
   if (product) {
     localStorage.setItem(PRODUCT_CACHE_KEY, JSON.stringify(product));
   }
