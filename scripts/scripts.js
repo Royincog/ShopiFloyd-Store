@@ -8,7 +8,6 @@ import {
   loadCSS,
   loadFooter,
   loadHeader,
-  loadScript,
   loadSection,
   loadSections,
   waitForFirstImage,
@@ -37,7 +36,7 @@ function buildHeroBlock(main) {
  * load fonts.css and set a session storage flag
  */
 async function loadFonts() {
-  await loadCSS(`${window.hlx.codeBasePath}/styles/fonts.css`);
+  //await loadCSS(`${window.hlx.codeBasePath}/styles/fonts.css`);
   try {
     if (!window.location.hostname.includes("localhost"))
       sessionStorage.setItem("fonts-loaded", "true");
@@ -102,9 +101,6 @@ async function loadEager(doc) {
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
-  loadScript(
-    "https://unpkg.com/@shopify/storefront-api-client@1.0.7/dist/umd/storefront-api-client.min.js"
-  );
   const main = doc.querySelector("main");
   await loadSections(main);
 
