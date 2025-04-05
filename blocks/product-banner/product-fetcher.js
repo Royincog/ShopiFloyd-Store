@@ -1,5 +1,6 @@
 import { getMetadata } from "../../scripts/aem.js";
-
+import { getCacheWithTTL, setCacheWithTTL } from "../../scripts/utils.js";
+const TTL_MS = 1 * 60 * 1000;
 const PUBLIC_KEY = getMetadata("token");
 const client = ShopifyStorefrontAPIClient.createStorefrontApiClient({
   storeDomain: "https://gig-development-online-store.myshopify.com",
@@ -66,20 +67,19 @@ async function fetchProduct(handle) {
  * @returns {Promise<{id: string, title: string, handle: string, description: string} | null>}
  */
 export async function renderProduct() {
-  // Try from cache first
-  const cached = localStorage.getItem(PRODUCT_CACHE_KEY);
-  if (cached) {
-    try {
-      return JSON.parse(cached);
-    } catch (e) {
-      console.warn("Invalid product data in local storage. Refetching...");
-    }
+  const handle = "nike-shoe";
+
+  // Try cached with TTL
+  const cachedProduct = getCacheWithTTL(PRODUCT_CACHE_KEY);
+  if (cachedProduct) {
+    return cachedProduct;
   }
 
   // Fallback to network
-  const product = await fetchProduct("nike-shoe");
+  const product = await fetchProduct(handle);
   if (product) {
-    localStorage.setItem(PRODUCT_CACHE_KEY, JSON.stringify(product));
+    setCacheWithTTL(PRODUCT_CACHE_KEY, product, TTL_MS);
   }
+
   return product;
 }
