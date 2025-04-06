@@ -1,4 +1,4 @@
-import { renderProduct } from "./product-fetcher.js";
+import { renderProduct } from "../../dist/shopify-product.js";
 
 export default async function decorate(block) {
   block.textContent = "";
