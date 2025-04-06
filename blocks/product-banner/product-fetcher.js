@@ -1,7 +1,8 @@
-import { getMetadata } from "../../scripts/aem.js";
+import { getShopifyToken } from "../../scripts/token.js";
 import { getCacheWithTTL, setCacheWithTTL } from "../../scripts/utils.js";
+
 const TTL_MS = 1 * 60 * 1000;
-const PUBLIC_KEY = getMetadata("token");
+const PUBLIC_KEY = getShopifyToken();
 const client = ShopifyStorefrontAPIClient.createStorefrontApiClient({
   storeDomain: "https://gig-development-online-store.myshopify.com",
   apiVersion: "2024-07",
