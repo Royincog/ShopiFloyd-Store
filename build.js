@@ -12,7 +12,7 @@ await build({
   define: {
     "process.env.SHOPIFY_TOKEN": JSON.stringify(SHOPIFY_TOKEN),
   },
-  target: ["es2020"],
+  target: ["esnext"],
   format: "esm",
   platform: "browser",
 });
