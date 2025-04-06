@@ -13,5 +13,5 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
-      - run: node ./scripts/token.js
+      - run: node build.js
       - run: npm run tailwind
