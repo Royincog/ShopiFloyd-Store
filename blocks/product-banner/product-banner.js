@@ -16,8 +16,6 @@ export default async function decorate(block) {
     "https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png";
 
   const price = product?.variants?.edges[0]?.node?.price?.amount ?? "0.00";
-  const currency =
-    product?.variants?.edges[0]?.node?.price?.currencyCode ?? "USD";
   const quantity =
     product?.variants?.edges[0]?.node?.quantityAvailable ?? "N/A";
 
