@@ -3,7 +3,6 @@ import { getCacheWithTTL, setCacheWithTTL } from "./utils.js";
 
 const TTL_MS = 1 * 60 * 1000;
 const PUBLIC_KEY = getShopifyToken();
-console.log("Public key is ", PUBLIC_KEY);
 const client = ShopifyStorefrontAPIClient.createStorefrontApiClient({
   storeDomain: "https://gig-development-online-store.myshopify.com",
   apiVersion: "2024-07",
@@ -68,9 +67,7 @@ async function fetchProduct(handle) {
  * Fetch and return a product's essential info
  * @returns {Promise<{id: string, title: string, handle: string, description: string} | null>}
  */
-export async function renderProduct() {
-  const handle = "nike-shoe";
-
+export async function renderProduct(handle) {
   // Try cached with TTL
   const cachedProduct = getCacheWithTTL(PRODUCT_CACHE_KEY);
   if (cachedProduct) {

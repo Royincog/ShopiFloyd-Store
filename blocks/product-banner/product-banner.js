@@ -1,10 +1,14 @@
 import { renderProduct } from "../../dist/shopify-product.js";
 
+function getBlockInfo(block) {
+  return block.querySelector("div:nth-child(2)").textContent;
+}
+
 export default async function decorate(block) {
+  const handle = getBlockInfo(block);
   block.textContent = "";
   const banner = document.createElement("section");
-  const product = await renderProduct();
-  console.log("Product is ", product);
+  const product = await renderProduct(handle);
   banner.className = "bg-black text-white";
 
   const imageSrc =
