@@ -1,4 +1,4 @@
-import { getShopifyToken } from "../dist/shopify-token.js";
+import { getShopifyToken } from "./token.js";
 import { getCacheWithTTL, setCacheWithTTL } from "./utils.js";
 
 const TTL_MS = 1 * 60 * 1000;
