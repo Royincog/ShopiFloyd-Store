@@ -4,6 +4,8 @@ on: [push]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SHOPIFY_TOKEN: ${{ secrets.SHOPIFY_PUBLIC_TOKEN }}
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js 20
@@ -11,4 +13,5 @@ jobs:
         with:
           node-version: 20
       - run: npm ci
+      - run: node ./scripts/token.js
       - run: npm run tailwind

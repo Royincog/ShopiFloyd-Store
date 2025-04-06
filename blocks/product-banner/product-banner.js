@@ -25,7 +25,7 @@ export default async function decorate(block) {
         </div>
         <div class="w-full md:w-1/2">
           <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">${product.title}</h2>
-          <p class="mt-4 text-gray-400 text-base">${product.description}</p>
+          <p class="mt-4 text-gray-400 text-base font-light">${product.description}</p>
           <div class="mt-4 text-white">
             <p class="text-xl font-semibold">Price: ₹ ${price}</p>
             <p class="text-sm text-gray-300 mt-1">Available Quantity: ${quantity}</p>
