@@ -145,6 +145,21 @@ function setup() {
       console.log(error);
     }
   }
+
+  // Inject lottie-player script once so blocks can use <lottie-player>
+  try {
+    const hasLottieScript = !!document.querySelector('script[src*="lottie-player"]');
+    const hasLottieCE = typeof customElements !== 'undefined' && !!customElements.get && !!customElements.get('lottie-player');
+    if (!hasLottieScript && !hasLottieCE) {
+      const lottieScript = document.createElement('script');
+      lottieScript.src = 'https://unpkg.com/@lottiefiles/lottie-player@1.5.7/dist/lottie-player.js';
+      lottieScript.async = true;
+      lottieScript.crossOrigin = 'anonymous';
+      document.head.appendChild(lottieScript);
+    }
+  } catch (e) {
+    // ignore errors during script injection
+  }
 }
 
 /**
