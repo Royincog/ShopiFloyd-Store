@@ -51,5 +51,13 @@ body {
 .product-carousel__dot { border: 1px solid var(--dot-border); }
 .product-carousel__dot.active { background: var(--dot-active-bg); }
 
+/* Ensure legacy utility classes like .bg-black / .text-white follow the active theme */
+html[data-theme="light"] .bg-black { background-color: var(--background-color) !important; }
+html[data-theme="light"] .text-white { color: var(--text-color) !important; }
+html[data-theme="light"] .bg-black *, html[data-theme="light"] .bg-black *:not(svg) { color: inherit; }
+
+html[data-theme="dark"] .bg-white { background-color: var(--background-color) !important; }
+html[data-theme="dark"] .text-black { color: var(--text-color) !important; }
+
 /* Keep previous light-mode specific rules for legacy selectors if needed */
 html[data-theme="light"] .product-carousel__dot.active { /* ensure contrast */ }
