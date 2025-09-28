@@ -60,7 +60,7 @@ export default async function decorate(block) {
       item.innerHTML = `
         <div class="product-card p-6 rounded-xl">
           <div class="product-card__image placeholder h-44 w-full bg-gray-800 rounded-lg"></div>
-          <div class="mt-4">
+          <div class="product-card__meta mt-4">
             <p class="text-sm text-gray-400">Product not found</p>
           </div>
         </div>
@@ -78,11 +78,11 @@ export default async function decorate(block) {
         <div class="product-card__image-wrapper rounded-lg overflow-hidden">
           <img src="${imageSrc}" alt="${product.title || ''}" class="product-card__image w-full h-44 object-cover rounded-lg">
         </div>
-        <div class="mt-4">
+        <div class="product-card__meta mt-4">
           <p class="product-card__title font-medium">${product.title}</p>
-          <p class="product-card__price mt-1 text-sm text-gray-300">₹ ${price}</p>
+          <p class="product-card__price mt-2 text-sm text-gray-300">₹ ${price}</p>
           <div class="mt-5">
-            <a href="#" class="product-card__buy inline-block rounded-md px-5 py-2 text-sm font-semibold">Buy Now</a>
+            <a href="#" class="product-card__buy inline-block rounded-md" aria-label="Buy ${product.title}">Buy Now</a>
           </div>
         </div>
       </div>
@@ -128,8 +128,6 @@ export default async function decorate(block) {
       let closest = 0;
       let closestDelta = Infinity;
       items.forEach((it, i) => {
-        const rect = it.getBoundingClientRect();
-        const trackRect = track.getBoundingClientRect();
         const itemCenter = it.offsetLeft + (it.offsetWidth / 2);
         const delta = Math.abs(itemCenter - center);
         if (delta < closestDelta) {
