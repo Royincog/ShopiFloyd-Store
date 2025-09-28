@@ -1,0 +1,9 @@
+/* CTA button styling for banner */
+.cta-button {
+  border-width: 2px;
+  border-style: solid;
+  border-color: currentColor;
+  padding: 8px 16px;
+}
+
+/* Respect existing utilities: keep rounded-md, shadow, and hover behavior */
