@@ -8,11 +8,10 @@ export default async function decorate(block) {
 
   block.textContent = "";
   const nav = document.createElement("header");
-  nav.className = "bg-black text-white";
+  nav.className = "site-header";
   nav.innerHTML = `
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
       <div class="flex items-center space-x-2">
-
         <span class="font-bold text-lg">Shopi Floyd</span>
       </div>
 
@@ -22,16 +21,45 @@ export default async function decorate(block) {
         <a href="#" class="hover:underline">Blogs</a>
       </nav>
 
+      <div class="flex items-center space-x-4">
+        <button id="theme-toggle" type="button" class="inline-flex items-center px-4 py-2 rounded-md outline transition"></button>
+      </div>
     </div>
 `;
 
   block.append(nav);
 
-  const toggleButton = nav.querySelector("#mobile-menu-toggle");
-  const mobileMenu = nav.querySelector("#mobile-menu");
-  if (toggleButton && mobileMenu) {
-    toggleButton.addEventListener("click", () => {
-      mobileMenu.classList.toggle("hidden");
-    });
-  }
+  const getTheme = () => document.documentElement.getAttribute("data-theme") || "light";
+
+  const applyHeaderTheme = (theme) => {
+    nav.classList.remove("bg-black", "text-white", "bg-white", "text-black", "shadow");
+    if (theme === "dark") {
+      nav.classList.add("bg-black", "text-white");
+    } else {
+      nav.classList.add("bg-white", "text-black", "shadow");
+    }
+  };
+
+  const toggleBtn = nav.querySelector("#theme-toggle");
+  const updateToggleBtn = (theme) => {
+    toggleBtn.textContent = theme === "dark" ? "Light mode" : "Dark mode";
+    toggleBtn.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+  };
+
+  const setTheme = (theme) => {
+    document.documentElement.setAttribute("data-theme", theme);
+    try {
+      localStorage.setItem("theme", theme);
+    } catch (e) {}
+    applyHeaderTheme(theme);
+    updateToggleBtn(theme);
+  };
+
+  applyHeaderTheme(getTheme());
+  updateToggleBtn(getTheme());
+
+  toggleBtn.addEventListener("click", () => {
+    const current = getTheme();
+    setTheme(current === "dark" ? "light" : "dark");
+  });
 }
