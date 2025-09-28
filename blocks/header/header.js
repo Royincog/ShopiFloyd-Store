@@ -31,15 +31,6 @@ export default async function decorate(block) {
 
   const getTheme = () => document.documentElement.getAttribute("data-theme") || "light";
 
-  const applyHeaderTheme = (theme) => {
-    nav.classList.remove("bg-black", "text-white", "bg-white", "text-black", "shadow");
-    if (theme === "dark") {
-      nav.classList.add("bg-black", "text-white");
-    } else {
-      nav.classList.add("bg-white", "text-black", "shadow");
-    }
-  };
-
   const toggleBtn = nav.querySelector("#theme-toggle");
   const updateToggleBtn = (theme) => {
     toggleBtn.textContent = theme === "dark" ? "Light mode" : "Dark mode";
@@ -51,11 +42,10 @@ export default async function decorate(block) {
     try {
       localStorage.setItem("theme", theme);
     } catch (e) {}
-    applyHeaderTheme(theme);
     updateToggleBtn(theme);
   };
 
-  applyHeaderTheme(getTheme());
+  // initialize toggle label from current theme
   updateToggleBtn(getTheme());
 
   toggleBtn.addEventListener("click", () => {
