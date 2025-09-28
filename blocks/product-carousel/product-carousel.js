@@ -28,7 +28,7 @@ export default async function decorate(block) {
   section.innerHTML = `
     <div class="max-w-7xl mx-auto px-4 py-12">
       <div class="flex items-center justify-between mb-4">
-        <h3 class="text-2xl font-bold">Featured Products</h3>
+        <h3 class="product-carousel__title text-2xl font-bold">Featured Products</h3>
         <div class="product-carousel__meta flex items-center gap-4">
           <span class="text-sm text-gray-400">Curated picks</span>
         </div>
