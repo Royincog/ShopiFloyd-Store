@@ -1,1 +1,8 @@
-/* stylelint-disable no-empty-source */
+.about-us {
+  display: block;
+  width: 100%;
+}
+
+.about-us * {
+  box-sizing: border-box;
+}
