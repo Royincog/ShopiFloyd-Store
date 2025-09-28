@@ -67,15 +67,13 @@
   padding: 12px 18px;
   border-radius: 12px;
   letter-spacing: 0.2px;
-  transition: background var(--default-transition-duration), color var(--default-transition-duration), transform var(--default-transition-duration), box-shadow var(--default-transition-duration);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+  transition: background var(--default-transition-duration), color var(--default-transition-duration), transform var(--default-transition-duration);
 }
 
 .product-card__buy:hover {
   background: var(--buy-bg-hover, rgba(255,255,255,0.95));
   color: var(--text-color, #000);
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
 
 /* Dots */
