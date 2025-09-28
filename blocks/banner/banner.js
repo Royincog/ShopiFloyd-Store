@@ -15,7 +15,7 @@ export default function decorate(block) {
           A exclusive demo store made with goodness of AEM Edge Delivery Service and Shopify !! :)
         </p>
         <div class="mt-6 flex space-x-4">
-          <a href="#" class="inline-block rounded-md bg-white px-4 py-2 text-black font-medium shadow hover:bg-gray-100 transition">Shop Now</a>
+          <a href="#" class="inline-block rounded-md bg-white px-4 py-2 text-black font-medium shadow hover:bg-gray-100 transition cta-button">Shop Now</a>
         </div>
       </div>
     `;
