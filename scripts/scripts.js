@@ -89,6 +89,18 @@ export function decorateMain(main) {
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
+// Initialize theme early based on localStorage or system preference
+(function initTheme() {
+  try {
+    const stored = localStorage.getItem('theme');
+    const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initial = stored || (systemDark ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-theme', initial);
+  } catch (e) {
+    document.documentElement.setAttribute('data-theme', 'light');
+  }
+})();
+
 async function loadEager(doc) {
   document.documentElement.lang = "en";
   decorateTemplateAndTheme();
