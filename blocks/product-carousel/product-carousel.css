@@ -25,15 +25,15 @@
 }
 
 .product-card {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border: 1px solid rgba(255,255,255,0.06);
-  transition: transform var(--default-transition-duration) var(--default-transition-timing-function), box-shadow var(--default-transition-duration) var(--default-transition-timing-function);
+  background: var(--card-bg, linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)));
+  border: 1px solid var(--card-border, rgba(255,255,255,0.06));
+  transition: transform var(--default-transition-duration) var(--default-transition-timing-function);
   padding: 0.75rem;
+  color: var(--text-color);
 }
 
 .product-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 14px 36px rgba(0,0,0,0.6);
 }
 
 .product-card__image {
@@ -55,27 +55,25 @@
 
 .product-card__price {
   margin: 0 0 10px 0;
-  color: var(--color-gray-400, #bdbdbd);
+  color: var(--muted-color, var(--color-gray-400, #bdbdbd));
 }
 
-/* White outlined Buy button with more space around it */
+/* Buy button uses theme variables */
 .product-card__buy {
   display: inline-block;
-  border: 1.5px solid rgba(255,255,255,0.95);
-  color: var(--color-white, #fff);
+  border: 3px solid var(--buy-border, rgba(255,255,255,0.95));
+  color: var(--buy-color, var(--color-white, #fff));
   background: transparent;
-  padding: 12px 18px;
+  padding: 8px 20px;
   border-radius: 12px;
   letter-spacing: 0.2px;
-  transition: background var(--default-transition-duration), color var(--default-transition-duration), transform var(--default-transition-duration), box-shadow var(--default-transition-duration);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.45);
+  transition: background var(--default-transition-duration), color var(--default-transition-duration), transform var(--default-transition-duration);
 }
 
 .product-card__buy:hover {
-  background: rgba(255,255,255,0.95);
-  color: #000;
+  background: var(--buy-bg-hover, rgba(255,255,255,0.95));
+  color: var(--text-color, #000);
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
 
 /* Dots */
@@ -91,16 +89,16 @@
   width: 12px;
   height: 12px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.12);
+  border: 1px solid var(--dot-border, rgba(255,255,255,0.12));
   background: transparent;
   padding: 0;
   transition: transform var(--default-transition-duration), background var(--default-transition-duration), border-color var(--default-transition-duration);
 }
 
 .product-carousel__dot.active {
-  background: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.75));
+  background: var(--dot-active-bg, linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.75)));
   transform: scale(1.15);
-  border-color: rgba(255,255,255,0.95);
+  border-color: var(--dot-border, rgba(255,255,255,0.95));
 }
 
 @media (width >= 900px) {

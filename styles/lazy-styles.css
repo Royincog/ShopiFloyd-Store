@@ -1,1 +1,91 @@
 /* add global styles that can be loaded post LCP here */
+
+/* Theme base - define many variables that components will consume */
+html[data-theme="dark"] {
+  --background-color: var(--color-black);
+  --light-color: #0b0b0b;
+  --text-color: var(--color-white);
+  --muted-color: var(--color-gray-300);
+  --card-bg: rgba(255,255,255,0.02);
+  --card-border: rgba(255,255,255,0.06);
+  --buy-border: rgba(255,255,255,0.95);
+  --buy-color: var(--color-white);
+  --buy-bg-hover: rgba(255,255,255,0.95);
+  --dot-border: rgba(255,255,255,0.12);
+  --dot-active-bg: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.75));
+}
+
+html[data-theme="light"] {
+  --background-color: var(--color-white);
+  --light-color: var(--color-gray-100, #f5f5f5);
+  --text-color: var(--color-black);
+  --muted-color: var(--color-gray-400);
+  --card-bg: rgba(0,0,0,0.02);
+  --card-border: rgba(0,0,0,0.06);
+  --buy-border: rgba(0,0,0,0.85);
+  --buy-color: #000;
+  --buy-bg-hover: rgba(0,0,0,0.9);
+  --dot-border: rgba(0,0,0,0.2);
+  --dot-active-bg: linear-gradient(90deg, rgba(0,0,0,0.9), rgba(0,0,0,0.75));
+}
+
+/* Apply to page */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color var(--default-transition-duration) var(--default-transition-timing-function), color var(--default-transition-duration) var(--default-transition-timing-function);
+}
+
+/* Ensure header/nav pick up nav background via variable */
+.site-header { background-color: var(--nav-background, var(--background-color)); color: var(--text-color); }
+
+/* Fallback component tweaks kept in components, but also allow per-block overrides via variables */
+
+/* Generic helpers used by blocks */
+.block { color: var(--text-color); }
+
+/* Small overrides kept for compatibility */
+.product-card__price { color: var(--muted-color, #bdbdbd); }
+.product-card__buy { border: 1.5px solid var(--buy-border); color: var(--buy-color); }
+.product-card__buy:hover { background: var(--buy-bg-hover); color: var(--text-color); }
+.product-carousel__dot { border: 1px solid var(--dot-border); }
+.product-carousel__dot.active { background: var(--dot-active-bg); }
+
+/* Ensure legacy utility classes like .bg-black / .text-white follow the active theme */
+
+/* Button styles for light mode */
+html[data-theme="light"] {
+  --button-outline-color: #000;
+  --button-text-color: #000;
+  --button-bg-hover: rgba(0,0,0,0.04);
+}
+
+html[data-theme="light"] button,
+html[data-theme="light"] input[type="button"],
+html[data-theme="light"] input[type="submit"],
+html[data-theme="light"] a.button,
+html[data-theme="light"] .product-card__buy,
+html[data-theme="light"] #theme-toggle {
+  border: 1.5px solid var(--button-outline-color) !important;
+  background: transparent !important;
+  color: var(--button-text-color) !important;
+}
+
+html[data-theme="light"] button:hover,
+html[data-theme="light"] input[type="button"]:hover,
+html[data-theme="light"] input[type="submit"]:hover,
+html[data-theme="light"] a.button:hover,
+html[data-theme="light"] .product-card__buy:hover,
+html[data-theme="light"] #theme-toggle:hover {
+  background: var(--button-bg-hover) !important;
+}
+
+html[data-theme="light"] .bg-black { background-color: var(--background-color) !important; }
+html[data-theme="light"] .text-white { color: var(--text-color) !important; }
+html[data-theme="light"] .bg-black *, html[data-theme="light"] .bg-black *:not(svg) { color: inherit; }
+
+html[data-theme="dark"] .bg-white { background-color: var(--background-color) !important; }
+html[data-theme="dark"] .text-black { color: var(--text-color) !important; }
+
+/* Keep previous light-mode specific rules for legacy selectors if needed */
+html[data-theme="light"] .product-carousel__dot.active { /* ensure contrast */ }

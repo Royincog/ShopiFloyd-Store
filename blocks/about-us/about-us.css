@@ -9,14 +9,16 @@
 
 .about-us__title {
   margin: 0 0 0.5rem 0;
+  color: var(--text-color);
 }
 
 .about-us__lead {
   margin: 0;
+  color: var(--text-color);
 }
 
 .about-us__stats {
-  color: var(--color-gray-300, #bdbdbd);
+  color: var(--muted-color, #bdbdbd);
   font-size: 0.9rem;
 }
 
@@ -24,7 +26,7 @@
   background: transparent;
   padding: 6px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.04);
+  border: 1px solid var(--card-border, rgba(255,255,255,0.04));
 }
 
 .about-us__features-grid {
@@ -38,8 +40,8 @@
   align-items: center;
   padding: 1rem;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255,255,255,0.06);
-  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--card-border, rgba(255,255,255,0.06));
+  background: var(--card-bg, rgba(255,255,255,0.02));
   transition: transform var(--default-transition-duration) var(--default-transition-timing-function), box-shadow var(--default-transition-duration) var(--default-transition-timing-function);
 }
 
@@ -56,7 +58,7 @@
   justify-content: center;
   border-radius: 12px;
   background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-  color: var(--color-white, #fff);
+  color: var(--text-color);
 }
 
 .about-us__icon-svg {
@@ -66,10 +68,12 @@
 
 .about-us__card-title {
   margin: 0;
+  color: var(--text-color);
 }
 
 .about-us__card-desc {
   margin: 0;
+  color: var(--muted-color, #bdbdbd);
 }
 
 @media (width >= 900px) {

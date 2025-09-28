@@ -1,0 +1,12 @@
+/* CTA buy button in product-banner */
+.cta-buy {
+  border-width: 3px;
+  border-style: solid;
+  border-color: currentColor;
+  padding: 8px 20px;
+}
+
+/* Ensure background/hover preserved */
+.cta-buy:hover {
+  background: rgba(0,0,0,0.04);
+}
