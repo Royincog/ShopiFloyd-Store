@@ -28,23 +28,22 @@ export default async function decorate(block) {
   section.innerHTML = `
     <div class="max-w-7xl mx-auto px-4 py-12">
       <div class="flex items-center justify-between mb-4">
-        <h3 class="text-2xl font-bold">Featured Products</h3>
-        <div class="product-carousel__controls">
-          <button class="product-carousel__prev" aria-label="Previous">◀</button>
-          <button class="product-carousel__next" aria-label="Next">▶</button>
+        <h3 class="product-carousel__title text-2xl font-bold">Featured Products</h3>
+        <div class="product-carousel__meta flex items-center gap-4">
+          <span class="text-sm text-gray-400">Curated picks</span>
         </div>
       </div>
       <div id="${carouselId}" class="product-carousel__track" tabindex="0"></div>
+      <div class="product-carousel__dots" role="tablist" aria-label="Carousel dots"></div>
     </div>
   `;
 
   block.append(section);
 
   const track = section.querySelector('.product-carousel__track');
-  const prevBtn = section.querySelector('.product-carousel__prev');
-  const nextBtn = section.querySelector('.product-carousel__next');
+  const dotsContainer = section.querySelector('.product-carousel__dots');
 
-  // render placeholders while fetching
+  // render placeholder when no handles
   if (handles.length === 0) {
     track.innerHTML = '<p class="text-gray-400">No products provided. Add product handles as links or comma-separated text inside the block.</p>';
     return;
@@ -59,9 +58,9 @@ export default async function decorate(block) {
 
     if (!product) {
       item.innerHTML = `
-        <div class="product-card bg-gray-900 p-4 rounded-lg">
-          <div class="product-card__image placeholder h-40 w-full bg-gray-800 rounded-md"></div>
-          <div class="mt-3">
+        <div class="product-card p-6 rounded-xl">
+          <div class="product-card__image placeholder h-44 w-full bg-gray-800 rounded-lg"></div>
+          <div class="product-card__meta mt-4">
             <p class="text-sm text-gray-400">Product not found</p>
           </div>
         </div>
@@ -75,15 +74,15 @@ export default async function decorate(block) {
     const price = product?.variants?.edges[0]?.node?.price?.amount ?? '0.00';
 
     item.innerHTML = `
-      <div class="product-card p-4 rounded-lg">
-        <div class="product-card__image-wrapper rounded-md overflow-hidden">
-          <img src="${imageSrc}" alt="${product.title || ''}" class="product-card__image w-full h-40 object-cover rounded-md">
+      <div class="product-card p-6 rounded-xl">
+        <div class="product-card__image-wrapper rounded-lg overflow-hidden">
+          <img src="${imageSrc}" alt="${product.title || ''}" class="product-card__image w-full h-44 object-cover rounded-lg">
         </div>
-        <div class="mt-3">
+        <div class="product-card__meta mt-4">
           <p class="product-card__title font-medium">${product.title}</p>
-          <p class="product-card__price mt-1 text-sm text-gray-300">₹ ${price}</p>
-          <div class="mt-3">
-            <a href="#" class="inline-block rounded-md bg-white px-4 py-2 text-black font-medium shadow hover:bg-gray-100 transition">Buy Now</a>
+          <p class="product-card__price mt-2 text-sm text-gray-300">₹ ${price}</p>
+          <div class="mt-5">
+            <a href="#" class="product-card__buy inline-block rounded-md" aria-label="Buy ${product.title}">Buy Now</a>
           </div>
         </div>
       </div>
@@ -93,31 +92,64 @@ export default async function decorate(block) {
     items.push(item);
   }
 
-  // scrolling behavior
-  const visibleItems = Math.min(3, items.length);
-  const scrollStep = () => {
-    if (!items[0]) return track.clientWidth;
-    const itemStyle = getComputedStyle(items[0]);
-    const gap = parseFloat(getComputedStyle(track).gap) || 0;
-    const width = items[0].getBoundingClientRect().width + gap;
-    return Math.round(width * visibleItems);
-  };
-
-  prevBtn.addEventListener('click', () => {
-    track.scrollBy({ left: -scrollStep(), behavior: 'smooth' });
-  });
-  nextBtn.addEventListener('click', () => {
-    track.scrollBy({ left: scrollStep(), behavior: 'smooth' });
-  });
-
-  // keyboard support
-  track.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') prevBtn.click();
-    if (e.key === 'ArrowRight') nextBtn.click();
+  // create dots
+  const dots = [];
+  items.forEach((it, idx) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'product-carousel__dot';
+    dot.dataset.index = String(idx);
+    dot.setAttribute('role', 'tab');
+    dot.setAttribute('aria-label', `Slide ${idx + 1}`);
+    dot.addEventListener('click', () => {
+      track.scrollTo({ left: it.offsetLeft, behavior: 'smooth' });
+      setActiveDot(idx);
+    });
+    dotsContainer.append(dot);
+    dots.push(dot);
   });
 
-  // small touch snap
+  function setActiveDot(activeIndex) {
+    dots.forEach((d, i) => {
+      d.classList.toggle('active', i === activeIndex);
+      d.setAttribute('aria-selected', String(i === activeIndex));
+    });
+  }
+
+  // set initial active
+  setActiveDot(0);
+
+  // update active dot on scroll (debounced)
+  let rafId = null;
   track.addEventListener('scroll', () => {
-    // could add indicators in future
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(() => {
+      const center = track.scrollLeft + track.clientWidth / 2;
+      let closest = 0;
+      let closestDelta = Infinity;
+      items.forEach((it, i) => {
+        const itemCenter = it.offsetLeft + (it.offsetWidth / 2);
+        const delta = Math.abs(itemCenter - center);
+        if (delta < closestDelta) {
+          closestDelta = delta;
+          closest = i;
+        }
+      });
+      setActiveDot(closest);
+    });
+  });
+
+  // keyboard support for dots
+  track.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') {
+      const current = dots.findIndex((d) => d.classList.contains('active'));
+      const prev = Math.max(0, current - 1);
+      dots[prev]?.click();
+    }
+    if (e.key === 'ArrowRight') {
+      const current = dots.findIndex((d) => d.classList.contains('active'));
+      const next = Math.min(dots.length - 1, current + 1);
+      dots[next]?.click();
+    }
   });
 }
