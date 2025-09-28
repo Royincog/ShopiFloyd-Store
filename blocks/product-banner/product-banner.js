@@ -39,7 +39,7 @@ export default async function decorate(block) {
             <li>Free shipping and easy returns</li>
           </ul>
           <div class="mt-6 flex space-x-4">
-            <a href="#" class="inline-block rounded-md bg-white px-5 py-2 text-black font-medium shadow hover:bg-gray-100 transition">Buy Now</a>
+            <a href="#" class="inline-block rounded-md bg-white px-5 py-2 text-black font-medium shadow hover:bg-gray-100 transition cta-buy">Buy Now</a>
           </div>
         </div>
       </div>
