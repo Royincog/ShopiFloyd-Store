@@ -52,6 +52,34 @@ body {
 .product-carousel__dot.active { background: var(--dot-active-bg); }
 
 /* Ensure legacy utility classes like .bg-black / .text-white follow the active theme */
+
+/* Button styles for light mode */
+html[data-theme="light"] {
+  --button-outline-color: #000;
+  --button-text-color: #000;
+  --button-bg-hover: rgba(0,0,0,0.04);
+}
+
+html[data-theme="light"] button,
+html[data-theme="light"] input[type="button"],
+html[data-theme="light"] input[type="submit"],
+html[data-theme="light"] a.button,
+html[data-theme="light"] .product-card__buy,
+html[data-theme="light"] #theme-toggle {
+  border: 1.5px solid var(--button-outline-color) !important;
+  background: transparent !important;
+  color: var(--button-text-color) !important;
+}
+
+html[data-theme="light"] button:hover,
+html[data-theme="light"] input[type="button"]:hover,
+html[data-theme="light"] input[type="submit"]:hover,
+html[data-theme="light"] a.button:hover,
+html[data-theme="light"] .product-card__buy:hover,
+html[data-theme="light"] #theme-toggle:hover {
+  background: var(--button-bg-hover) !important;
+}
+
 html[data-theme="light"] .bg-black { background-color: var(--background-color) !important; }
 html[data-theme="light"] .text-white { color: var(--text-color) !important; }
 html[data-theme="light"] .bg-black *, html[data-theme="light"] .bg-black *:not(svg) { color: inherit; }
