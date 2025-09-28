@@ -11,6 +11,8 @@
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
   padding-bottom: 8px;
+  padding-top: 8px;
+  padding-left: 4px;
 }
 
 .product-carousel__item {
@@ -19,36 +21,80 @@
 
 .product-card {
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border: 1px solid rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
   transition: transform var(--default-transition-duration) var(--default-transition-timing-function), box-shadow var(--default-transition-duration) var(--default-transition-timing-function);
+  padding: 0.75rem;
 }
 
 .product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 22px rgba(0,0,0,0.6);
+  transform: translateY(-8px);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.6);
 }
 
 .product-card__image {
   width: 100%;
-  height: 160px;
+  height: 180px;
   object-fit: cover;
   display: block;
 }
 
-.product-carousel__controls button {
-  background: transparent;
+/* Outlined Buy button with more space */
+.product-card__buy {
+  display: inline-block;
+  border: 1px solid rgba(255,255,255,0.16);
   color: var(--color-white, #fff);
-  border: 1px solid rgba(255,255,255,0.06);
-  padding: 6px 10px;
-  border-radius: 8px;
+  background: transparent;
+  padding: 10px 16px;
+  border-radius: 10px;
+  transition: background var(--default-transition-duration), color var(--default-transition-duration), transform var(--default-transition-duration);
 }
 
-.product-carousel__controls button:hover {
-  background: rgba(255,255,255,0.02);
+.product-card__buy:hover {
+  background: rgba(255,255,255,0.95);
+  color: #000;
+  transform: translateY(-2px);
+}
+
+/* Dots */
+.product-carousel__dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  align-items: center;
+}
+
+.product-carousel__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: transparent;
+  padding: 0;
+  transition: transform var(--default-transition-duration), background var(--default-transition-duration), border-color var(--default-transition-duration);
+}
+
+.product-carousel__dot.active {
+  background: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.75));
+  transform: scale(1.15);
+  border-color: rgba(255,255,255,0.95);
+}
+
+/* make track visually separated with subtle outline */
+.product-carousel__track::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
 }
 
 @media (width >= 900px) {
   .product-carousel__track {
     grid-auto-columns: min(300px, 33%);
+    gap: 1.25rem;
+  }
+
+  .product-card__image {
+    height: 160px;
   }
 }
