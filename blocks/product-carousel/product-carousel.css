@@ -13,6 +13,7 @@
   padding-bottom: 8px;
   padding-top: 8px;
   padding-left: 4px;
+  position: relative;
 }
 
 .product-carousel__item {
@@ -38,21 +39,39 @@
   display: block;
 }
 
-/* Outlined Buy button with more space */
+/* meta wrapper gives breathing room around product text */
+.product-card__meta {
+  padding: 12px 8px 8px 8px;
+}
+
+.product-card__title {
+  margin: 0 0 6px 0;
+  font-size: 1rem;
+}
+
+.product-card__price {
+  margin: 0 0 10px 0;
+  color: var(--color-gray-400, #bdbdbd);
+}
+
+/* White outlined Buy button with more space around it */
 .product-card__buy {
   display: inline-block;
-  border: 1px solid rgba(255,255,255,0.16);
+  border: 1.5px solid rgba(255,255,255,0.95);
   color: var(--color-white, #fff);
   background: transparent;
-  padding: 10px 16px;
-  border-radius: 10px;
-  transition: background var(--default-transition-duration), color var(--default-transition-duration), transform var(--default-transition-duration);
+  padding: 12px 18px;
+  border-radius: 12px;
+  letter-spacing: 0.2px;
+  transition: background var(--default-transition-duration), color var(--default-transition-duration), transform var(--default-transition-duration), box-shadow var(--default-transition-duration);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.45);
 }
 
 .product-card__buy:hover {
   background: rgba(255,255,255,0.95);
   color: #000;
   transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
 }
 
 /* Dots */
@@ -78,14 +97,6 @@
   background: linear-gradient(90deg, rgba(255,255,255,0.95), rgba(255,255,255,0.75));
   transform: scale(1.15);
   border-color: rgba(255,255,255,0.95);
-}
-
-/* make track visually separated with subtle outline */
-.product-carousel__track::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
 }
 
 @media (width >= 900px) {
