@@ -33,6 +33,18 @@ function buildHeroBlock(main) {
 }
 
 /**
+ * Builds About Us block and appends to main.
+ * @param {Element} main The container element
+ */
+function buildAboutBlock(main) {
+  if (!main.querySelector(".about-us")) {
+    const section = document.createElement("div");
+    section.append(buildBlock("about-us", ""));
+    main.append(section);
+  }
+}
+
+/**
  * load fonts.css and set a session storage flag
  */
 async function loadFonts() {
@@ -52,6 +64,7 @@ async function loadFonts() {
 function buildAutoBlocks(main) {
   try {
     buildHeroBlock(main);
+    buildAboutBlock(main);
   } catch (error) {
     // eslint-disable-next-line no-console
     console.error("Auto Blocking failed", error);
